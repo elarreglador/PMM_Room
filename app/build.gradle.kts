@@ -59,11 +59,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     // Room con Kotlin Extensions (ktx)
-    implementation("androidx.room:room-ktx:2.5.2")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     // Opcionales para LiveData y corrutinas
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
