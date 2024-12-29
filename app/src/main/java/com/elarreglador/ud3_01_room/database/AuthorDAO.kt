@@ -9,16 +9,16 @@ import androidx.room.Update
 interface AuthorDao {
 
     @Insert
-    suspend fun insertAuthor(author: Author)
+    suspend fun insertAuthor(author: Author) // Insertar autor
 
     @Update
-    suspend fun updateAuthor(author: Author)
+    suspend fun updateAuthor(author: Author) // Actualizar autor
 
     @Query("SELECT * FROM authors WHERE id = :authorId")
-    suspend fun getAuthorById(authorId: Long): Author?
+    suspend fun getAuthorById(authorId: Long): Author? // Buscar autor por id
 
     @Query("SELECT * FROM authors")
-    suspend fun getAllAuthors(): List<Author>
+    suspend fun getAllAuthors(): List<Author> // Buscar todos los autores
 
     @Query("SELECT * FROM authors WHERE name LIKE :authorName")
     suspend fun getAuthorsByName(authorName: String): List<Author>  // Buscar por nombre
@@ -28,7 +28,7 @@ interface AuthorDao {
         INNER JOIN books ON authors.id = books.authorId
         WHERE books.title LIKE :bookTitle
     """)
-    suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>  // Buscar autor por título del libro
+    suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>  // Buscar autor por libro
 
     @Query("DELETE FROM authors WHERE id = :authorId")
     suspend fun deleteAuthor(authorId: Long)
