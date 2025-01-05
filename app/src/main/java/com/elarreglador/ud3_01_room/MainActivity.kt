@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.ui.theme.UD3_01_RoomTheme
 import com.elarreglador.ud3_01_room.database.Book
-import com.elarreglador.ud3_01_room.database.LibraryDatabase
+import com.elarreglador.ud3_01_room.database.myDatabase
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -25,11 +25,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         // Obtén la instancia de la base de datos (Singleton)
-        val miBD = LibraryDatabase.getDatabase(this)
+        val miBD = myDatabase.getDatabase(this)
 
         // Crea un autor
-        val author = Author(id = 1, name = "Howard Phillips", surname = "Lovecraft", country = "EEUU")
-        val book = Book(id = 1, title = "Dagon", authorId = 1, year = 1919)
+        val author = Author(name = "Howard Phillips", surname = "Lovecraft", country = "EEUU")
+        val book = Book(title = "Dagon", authorId = 1, year = 1919)
 
         // Añadir el autor a la base de datos
         lifecycleScope.launch {
