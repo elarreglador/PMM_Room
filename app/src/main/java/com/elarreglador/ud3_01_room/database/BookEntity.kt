@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+// Definición de la entidad libro
 @Entity(
     tableName = "books",
     foreignKeys = [ForeignKey( // creamos una clave foranea que referencia

@@ -24,14 +24,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Obtén la instancia de la base de datos
+        // Obtén la instancia de la base de datos (Singleton)
         val miBD = LibraryDatabase.getDatabase(this)
 
-        // Crea un autor y un libro (Objetos)
-        val author = Author(id = 1, name = "Pedro", surname = "García", country = "España")
-        val book = Book(id = 1, title = "Libro de prueba", authorId = 1, year = 2023)
+        // Crea un autor
+        val author = Author(id = 1, name = "Howard Phillips", surname = "Lovecraft", country = "EEUU")
+        val book = Book(id = 1, title = "Dagon", authorId = 1, year = 1919)
 
-        // Añadir el autor y el libro a la base de datos
+        // Añadir el autor a la base de datos
         lifecycleScope.launch {
             miBD.authorDao().insertAuthor(author)
             miBD.bookDao().insertBook(book)
@@ -56,12 +56,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    UD3_01_RoomTheme {
-        Greeting("Android")
-    }
 }

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+// Definición de la interfaz para el DAO de autores
 @Dao
 interface AuthorDao {
 
@@ -31,5 +32,5 @@ interface AuthorDao {
     suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>  // Buscar autor por libro
 
     @Query("DELETE FROM authors WHERE id = :authorId")
-    suspend fun deleteAuthor(authorId: Long)
+    suspend fun deleteAuthor(authorId: Long) // Eliminar autor por id
 }

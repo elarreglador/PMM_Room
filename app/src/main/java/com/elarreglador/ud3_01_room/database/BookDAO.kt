@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
+// Definición de la interfaz para el DAO de libros
 @Dao
 interface BookDao {
 
