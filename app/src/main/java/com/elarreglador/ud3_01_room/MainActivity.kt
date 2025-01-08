@@ -16,6 +16,8 @@ import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.ui.theme.UD3_01_RoomTheme
 import com.elarreglador.ud3_01_room.database.Book
 import com.elarreglador.ud3_01_room.database.myDatabase
+import com.elarreglador.ud3_01_room.screens.HomeScreen
+import com.elarreglador.ud3_01_room.screens.Navegador
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -39,21 +41,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             UD3_01_RoomTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                Navegador()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+
