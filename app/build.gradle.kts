@@ -69,4 +69,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
+    // Navegacion entre pantallas
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+
 }
