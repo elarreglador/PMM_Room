@@ -30,5 +30,17 @@ fun Navegador() {
             AuthorAddScreen(navController)
         }
 
+        composable(
+            route = "BookListViewScreen"
+        ){
+            BookListViewScreen(navController)
+        }
+
+        composable(
+            route = "BookAddScreen"
+        ){
+            BookAddScreen(navController)
+        }
+
     }
 }

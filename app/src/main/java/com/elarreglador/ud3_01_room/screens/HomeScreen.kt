@@ -57,7 +57,7 @@ fun HomeScreen(navController: NavController) {
                 }
 
                 Button(onClick = {
-
+                    navController.navigate("BookListViewScreen")
                 }) {
                     Text("Lista de libros", )
                 }
