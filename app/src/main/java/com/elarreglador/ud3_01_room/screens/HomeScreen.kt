@@ -51,7 +51,7 @@ fun HomeScreen(navController: NavController) {
                 Text( "App de gestion de bibliotecas" , modifier = Modifier.padding(paddingValues), textAlign = TextAlign.Justify)
 
                 Button(onClick = {
-
+                    navController.navigate("AuthorListViewScreen")
                 }) {
                     Text("Lista de autores")
                 }

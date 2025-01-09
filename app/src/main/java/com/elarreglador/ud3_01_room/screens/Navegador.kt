@@ -18,6 +18,17 @@ fun Navegador() {
             HomeScreen(navController)
         }
 
+        composable(
+            route = "AuthorListViewScreen"
+        ){
+            AuthorListViewScreen(navController)
+        }
+
+        composable(
+            route = "AuthorAddScreen"
+        ){
+            AuthorAddScreen(navController)
+        }
 
     }
 }
