@@ -74,7 +74,9 @@ fun AuthorListViewScreen(navController: NavController) {
             // Contenido principal, respetando los paddings del Scaffold
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .padding(paddingValues) // Aplica el padding del Scaffold
+                    .padding(16.dp) // Agrega un padding adicional si es necesario
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
             }
