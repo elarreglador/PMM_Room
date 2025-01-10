@@ -41,7 +41,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun AuthorAddScreen(navController: NavController) {
 
-    val authorViewModel = null
     var context = LocalContext.current
     var miBD = MyDatabase.getDatabase(context)
     var name = remember { mutableStateOf("") }
@@ -107,7 +106,7 @@ fun AuthorAddScreen(navController: NavController) {
 
                 Image(
                     painter = painterResource(id = R.drawable.autor),
-                    contentDescription = "Imagen de libro"
+                    contentDescription = "Imagen de autor"
                 )
 
                 Spacer (modifier = Modifier.height(10.dp))

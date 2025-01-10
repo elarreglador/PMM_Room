@@ -25,17 +25,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
+import com.elarreglador.ud3_01_room.database.Author
+import com.elarreglador.ud3_01_room.database.Book
+import com.elarreglador.ud3_01_room.database.MyDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun BookAddScreen(navController: NavController) {
 
-    var title by remember { mutableStateOf("") }
-    var authorId by remember { mutableStateOf("") }
-    var year by remember { mutableStateOf("") }
+    var context = LocalContext.current
+    var miBD = MyDatabase.getDatabase(context)
+    var title = remember { mutableStateOf("") }
+    var authorId = remember { mutableStateOf("") }
+    var year = remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -61,8 +70,8 @@ fun BookAddScreen(navController: NavController) {
                 )
             }
         },
-        bottomBar = {
-        },
+        bottomBar = {},
+        floatingActionButton = {},
         content = { paddingValues ->
             // Contenido principal, respetando los paddings del Scaffold
             Column (
@@ -80,8 +89,8 @@ fun BookAddScreen(navController: NavController) {
                 Spacer (modifier = Modifier.height(10.dp))
 
                 TextField(
-                    value = title,
-                    onValueChange = { newText -> title = newText },
+                    value = title.value,
+                    onValueChange = { newText -> title.value = newText },
                     label = { Text("Titulo") },
                     maxLines = 1, // Limita a una línea
                     singleLine = true, // Garantiza que sea un campo de una sola línea
@@ -91,8 +100,8 @@ fun BookAddScreen(navController: NavController) {
                 Spacer (modifier = Modifier.height(10.dp))
 
                 TextField(
-                    value = authorId,
-                    onValueChange = { newText -> authorId = newText },
+                    value = authorId.value,
+                    onValueChange = { newText -> authorId.value = newText },
                     label = { Text("authorId") },
                     maxLines = 1, // Limita a una línea
                     singleLine = true, // Garantiza que sea un campo de una sola línea
@@ -102,8 +111,8 @@ fun BookAddScreen(navController: NavController) {
                 Spacer (modifier = Modifier.height(10.dp))
 
                 TextField(
-                    value = year,
-                    onValueChange = { newText -> year = newText },
+                    value = year.value,
+                    onValueChange = { newText -> year.value = newText },
                     label = { Text("Año") },
                     maxLines = 1, // Limita a una línea
                     singleLine = true, // Garantiza que sea un campo de una sola línea
@@ -117,6 +126,15 @@ fun BookAddScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.End
                 ) {
                     Button(onClick = {
+                        // Ejecutar la operación de base de datos en un hilo en segundo plano
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val book = Book(
+                                title = title.value,
+                                authorId = authorId.value.toLong(),
+                                year = year.value.toInt()
+                            )
+                            miBD.bookDao().insertBook(book) // Inserta el libro
+                        }
                         navController.navigate("BookListViewScreen")
                     }) {
                         Text("Agregar libro")
