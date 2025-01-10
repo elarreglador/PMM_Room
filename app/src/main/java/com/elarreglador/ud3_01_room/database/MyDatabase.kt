@@ -7,23 +7,23 @@ import androidx.room.RoomDatabase
 
 // Definición de la base de datos
 @Database(entities = [Author::class, Book::class], version = 1, exportSchema = false)
-abstract class myDatabase : RoomDatabase() {
+abstract class MyDatabase : RoomDatabase() {
 
     abstract fun authorDao(): AuthorDao
     abstract fun bookDao(): BookDao
 
     companion object {
         @Volatile
-        private var INSTANCE: myDatabase? = null
+        private var INSTANCE: MyDatabase? = null
 
         // Funcion necesaria para obtener la instancia de la base de datos, es un
         // Singleton para evitar que se creen varias instancias de la base de datos
         // y se llamara solo una vez durante la ejecucion de la app
-        fun getDatabase(context: Context): myDatabase {
+        fun getDatabase(context: Context): MyDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    myDatabase::class.java,
+                    MyDatabase::class.java,
                     "my_Database"
                 )
                     // Room regenera las tablas de la base de datos en cada ejecucion
