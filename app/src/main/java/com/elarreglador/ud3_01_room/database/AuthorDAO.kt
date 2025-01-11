@@ -24,6 +24,9 @@ interface AuthorDao {
     @Query("SELECT * FROM authors WHERE name LIKE :authorName")
     suspend fun getAuthorsByName(authorName: String): List<Author>  // Buscar por nombre
 
+    @Query("SELECT * FROM authors WHERE surname LIKE :authorSurname")
+    suspend fun getAuthorsBySurname(authorSurname: String): List<Author>  // Buscar por apellido
+
     @Query("""
         SELECT authors.* FROM authors
         INNER JOIN books ON authors.id = books.authorId

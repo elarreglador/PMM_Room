@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -23,6 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -44,43 +46,68 @@ import com.elarreglador.ud3_01_room.database.MyDatabase
 @Composable
 fun AuthorListViewScreen(navController: NavController) {
 
+    // Declarar la base de datos antes de los LaunchedEffect
+    val context = LocalContext.current
+    val db = remember { MyDatabase.getDatabase(context) }
     // Estado para almacenar la lista de autores
     val authorsState = remember { mutableStateOf<List<Author>>(emptyList()) }
-    // Recuperar los autores al iniciar la pantalla
-    val context = LocalContext.current
+    // Estado para almacenar la consulta de búsqueda
+    val searchQuery = remember { mutableStateOf("") }
+
+    // Recuperar todos los autores al cargar la pantalla
     LaunchedEffect(Unit) {
-        // Mover la obtención de la base de datos fuera del cuerpo composable
-        val db = MyDatabase.getDatabase(context)
-        val authors = db.authorDao().getAllAuthors()
-        authorsState.value = authors
+        authorsState.value = db.authorDao().getAllAuthors()
+    }
+
+    // Actualizar la lista en función de la búsqueda
+    LaunchedEffect(searchQuery.value) {
+        if (searchQuery.value.isEmpty()) {
+            // Si el campo de búsqueda está vacío, mostrar todos los autores
+            authorsState.value = db.authorDao().getAllAuthors()
+        } else {
+            // Filtrar por nombre y apellido
+            authorsState.value = db.authorDao().getAuthorsByName("%${searchQuery.value}%") +
+                    db.authorDao().getAuthorsBySurname("%${searchQuery.value}%")
+        }
     }
 
     Scaffold(
         topBar = {
-            Row (
+            Column (
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primary) // Fondo de color
-                    .padding(25.dp), // Nos separa de la topBar
+                    .padding(start = 0.dp, top = 25.dp, end = 0.dp), // Nos separa de la topBar
 
-                verticalAlignment = Alignment.CenterVertically // Alinea verticalmente al centro
             ) {
+                Row {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver",
+                        )
+                    }
 
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons. AutoMirrored. Filled. ArrowBack,
-                        contentDescription = "Volver",
+                    Text(
+                        text = "Lista de autores",
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Image(
+                        painter = painterResource(id = R.drawable.autor),
+                        contentDescription = "Imagen de lista de autores"
                     )
                 }
 
-                Text(
-                    text = "Lista de autores",
-                    modifier = Modifier.padding(16.dp),
-                )
-
-                Image(
-                    painter = painterResource(id = R.drawable.autor),
-                    contentDescription = "Imagen de lista de autores"
+                // Barra de búsqueda
+                TextField(
+                    value = searchQuery.value,
+                    onValueChange = { searchQuery.value = it },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    placeholder = { Text("Buscar autor...") },
+                    singleLine = true,
+                    maxLines = 1
                 )
             }
         },
