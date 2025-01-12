@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +39,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.database.MyDatabase
-
+import com.elarreglador.ud3_01_room.ui.theme.Betun
+import com.elarreglador.ud3_01_room.ui.theme.Marfil
 
 
 @Composable
@@ -147,7 +151,7 @@ fun AuthorListViewScreen(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ){
-                                Box( // box para la id del autor
+                                Column ( // box para la id del autor
                                     modifier = Modifier
                                         .background(MaterialTheme.colorScheme.secondary)
                                         .widthIn(min = 60.dp) // Establece un ancho mínimo
@@ -155,15 +159,31 @@ fun AuthorListViewScreen(navController: NavController) {
                                 ) {
                                     val author = authorsState.value[index]
                                     Text(
-                                        text = "${author.id}",
+                                        text = "ID: ${author.id}",
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSecondary,
-                                        modifier = Modifier
-                                            .align(Alignment.Center)
                                     )
+
+                                    Button(
+                                        onClick = {  },
+                                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                                            containerColor = MaterialTheme.colorScheme.secondary,
+                                            contentColor = MaterialTheme.colorScheme.onSecondary
+                                        ),
+                                        shape = MaterialTheme.shapes.small,
+                                        modifier = Modifier
+                                            .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Editar",
+                                            modifier = Modifier
+                                                .size(20.dp)
+                                        )
+                                    }
                                 }
 
-                                Box(
+                                Box( // box para el nombre del autor
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .background(

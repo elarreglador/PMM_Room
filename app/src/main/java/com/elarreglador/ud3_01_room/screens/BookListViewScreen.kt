@@ -17,6 +17,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -148,21 +150,41 @@ fun BookListViewScreen(navController: NavController) {
                             val (book, authorName) = booksWithAuthorsState.value[index]
 
                             Row(
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                             ) {
-                                Box(
+                                Box( // espacio para la id del libro
                                     modifier = Modifier
                                         .background(MaterialTheme.colorScheme.secondary)
                                         .widthIn(min = 60.dp)
                                         .fillMaxHeight()
                                 ) {
-                                    Text(
-                                        text = "ID:${book.id}",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSecondary,
-                                        modifier = Modifier
-                                            .align(Alignment.Center)
-                                    )
+                                    Column {
+                                        Text(
+                                            text = "ID:${book.id}",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSecondary,
+                                            modifier = Modifier
+                                        )
+
+                                        Button(
+                                            onClick = {  },
+                                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                            ),
+                                            shape = MaterialTheme.shapes.small,
+                                            modifier = Modifier
+                                                .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Edit,
+                                                contentDescription = "Editar",
+                                                modifier = Modifier
+                                                    .size(20.dp)
+                                            )
+                                        }
+                                    }
                                 }
 
                                 Box(
