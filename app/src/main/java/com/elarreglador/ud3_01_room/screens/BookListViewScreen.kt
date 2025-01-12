@@ -156,7 +156,7 @@ fun BookListViewScreen(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-                                Box( // espacio para la id del libro
+                                Box( // espacio para la id del libro y boton editar
                                     modifier = Modifier
                                         .background(MaterialTheme.colorScheme.secondary)
                                         .widthIn(min = 60.dp)
@@ -171,7 +171,9 @@ fun BookListViewScreen(navController: NavController) {
                                         )
 
                                         Button(
-                                            onClick = {  },
+                                            onClick = {
+                                                navController.navigate("BookEditScreen/${book.id}")
+                                            },
                                             colors = androidx.compose.material3.ButtonDefaults.buttonColors(
                                                 containerColor = MaterialTheme.colorScheme.secondary,
                                                 contentColor = MaterialTheme.colorScheme.onSecondary

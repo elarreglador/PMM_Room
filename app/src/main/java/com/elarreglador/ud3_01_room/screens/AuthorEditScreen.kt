@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun AuthorEditScreen(navController: NavController) {
+fun AuthorEditScreen(navController: NavController , authorId: Int) {
     Box(
         modifier = Modifier
             .fillMaxSize(), // Ocupa todo el espacio disponible

@@ -153,7 +153,7 @@ fun AuthorListViewScreen(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ){
-                                Column ( // box para la id del autor
+                                Column ( // box para la id del autor y boton de edicion
                                     modifier = Modifier
                                         .background(MaterialTheme.colorScheme.secondary)
                                         .widthIn(min = 60.dp) // Establece un ancho mínimo
@@ -167,7 +167,9 @@ fun AuthorListViewScreen(navController: NavController) {
                                     )
 
                                     Button(
-                                        onClick = {  },
+                                        onClick = {
+                                            navController.navigate("AuthorEditScreen/${author.id}")
+                                        },
                                         colors = androidx.compose.material3.ButtonDefaults.buttonColors(
                                             containerColor = MaterialTheme.colorScheme.secondary,
                                             contentColor = MaterialTheme.colorScheme.onSecondary
