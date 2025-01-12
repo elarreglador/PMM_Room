@@ -62,8 +62,9 @@ fun AuthorListViewScreen(navController: NavController) {
             authorsState.value = db.authorDao().getAllAuthors()
         } else {
             // Filtrar por nombre y apellido
-            authorsState.value = db.authorDao().getAuthorsByName("%${searchQuery.value}%") +
-                    db.authorDao().getAuthorsBySurname("%${searchQuery.value}%")
+            authorsState.value = (db.authorDao().getAuthorsByName("%${searchQuery.value}%") +
+                    db.authorDao().getAuthorsBySurname("%${searchQuery.value}%"))
+                        .distinctBy { it.id }
         }
     }
 
