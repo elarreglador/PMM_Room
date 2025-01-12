@@ -21,6 +21,9 @@ interface BookDao {
     @Query("SELECT * FROM books WHERE id = :authorId")
     suspend fun getBooksByAuthor(authorId: Long): List<Book> // Buscar libros por id de autor
 
+    @Query("SELECT * FROM books")
+    suspend fun getAllBooks(): List<Book> // Buscar todos los libros
+
     @Query("""
         SELECT books.* FROM books
         INNER JOIN authors ON books.authorId = authors.id
