@@ -59,12 +59,13 @@ fun AuthorListViewScreen(navController: NavController) {
     LaunchedEffect(searchQuery.value) {
         if (searchQuery.value.isEmpty()) {
             // Si el campo de búsqueda está vacío, mostrar todos los autores
-            authorsState.value = db.authorDao().getAllAuthors()
+            authorsState.value = db.authorDao().getAllAuthors().sortedBy { it.name }
         } else {
             // Filtrar por nombre y apellido
             authorsState.value = (db.authorDao().getAuthorsByName("%${searchQuery.value}%") +
                     db.authorDao().getAuthorsBySurname("%${searchQuery.value}%"))
                         .distinctBy { it.id }
+                        .sortedBy { it.name }
         }
     }
 
@@ -155,8 +156,10 @@ fun AuthorListViewScreen(navController: NavController) {
                                     val author = authorsState.value[index]
                                     Text(
                                         text = "${author.id}",
+                                        style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSecondary,
-                                        modifier = Modifier.align(Alignment.Center)
+                                        modifier = Modifier
+                                            .align(Alignment.Center)
                                     )
                                 }
 

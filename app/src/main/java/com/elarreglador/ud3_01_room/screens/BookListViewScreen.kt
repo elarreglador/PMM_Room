@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -52,7 +54,7 @@ fun BookListViewScreen(navController: NavController) {
             val authorName = db.authorDao().getAuthorById(book.authorId)?.name ?: "Autor desconocido"
             book to authorName
         }
-        booksWithAuthorsState.value = booksWithAuthors
+        booksWithAuthorsState.value = booksWithAuthors.sortedBy { it.first.title }
     }
 
     // Actualizar libros y autores según la búsqueda
@@ -71,8 +73,10 @@ fun BookListViewScreen(navController: NavController) {
                 db.authorDao().getAuthorById(book.authorId)?.surname)
             book to authorName
         }
-        // Eliminar duplicados usando distinctBy filtrando por la ID del libro
-        val uniqueBooksWithAuthors = booksWithAuthors.distinctBy { it.first.id }
+        // Eliminar duplicados usando distinctBy filtrando por la ID del libro y los ordena
+        val uniqueBooksWithAuthors = booksWithAuthors
+            .distinctBy { it.first.id }
+            .sortedBy { it.first.title }
 
         booksWithAuthorsState.value = uniqueBooksWithAuthors
     }
@@ -153,9 +157,11 @@ fun BookListViewScreen(navController: NavController) {
                                         .fillMaxHeight()
                                 ) {
                                     Text(
-                                        text = "${book.id}",
+                                        text = "ID:${book.id}",
+                                        style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSecondary,
-                                        modifier = Modifier.align(Alignment.Center)
+                                        modifier = Modifier
+                                            .align(Alignment.Center)
                                     )
                                 }
 
