@@ -144,6 +144,8 @@ fun AuthorListViewScreen(navController: NavController) {
                 if (authorsState.value.isEmpty()) {
                     Text("No hay autores disponibles.")
                 } else {
+                    Text("${authorsState.value.size} autores listados")
+                    Spacer(modifier = Modifier.height(8.dp))
                     LazyColumn {
                         items(authorsState.value.size) { index ->
 

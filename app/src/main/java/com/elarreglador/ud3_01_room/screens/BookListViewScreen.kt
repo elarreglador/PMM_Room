@@ -120,6 +120,7 @@ fun BookListViewScreen(navController: NavController) {
                 )
             }
         },
+        bottomBar = {},
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("BookAddScreen") },
@@ -145,6 +146,8 @@ fun BookListViewScreen(navController: NavController) {
                 if (booksWithAuthorsState.value.isEmpty()) {
                     Text("No hay libros disponibles.")
                 } else {
+                    Text("${booksWithAuthorsState.value.size} libros listados")
+                    Spacer(modifier = Modifier.height(8.dp))
                     LazyColumn {
                         items(booksWithAuthorsState.value.size) { index ->
                             val (book, authorName) = booksWithAuthorsState.value[index]
