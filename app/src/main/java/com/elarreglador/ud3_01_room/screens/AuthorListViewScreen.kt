@@ -82,7 +82,9 @@ fun AuthorListViewScreen(navController: NavController) {
                     .padding(start = 0.dp, top = 25.dp, end = 0.dp), // Nos separa de la topBar
 
             ) {
-                Row {
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                ){
                     IconButton(
                         onClick = { navController.navigate("HomeScreen") },
                     ) {
@@ -96,6 +98,8 @@ fun AuthorListViewScreen(navController: NavController) {
                         text = "Lista de autores",
                         modifier = Modifier.padding(16.dp),
                     )
+
+                    Spacer(modifier = Modifier.weight(1f))
 
                     Image(
                         painter = painterResource(id = R.drawable.autor),

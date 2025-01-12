@@ -91,7 +91,9 @@ fun BookListViewScreen(navController: NavController) {
                     .background(MaterialTheme.colorScheme.primary)
                     .padding(start = 0.dp, top = 25.dp, end = 0.dp)
             ) {
-                Row {
+                Row (
+                    verticalAlignment = Alignment.CenterVertically
+                    ){
                     IconButton(
                         onClick = { navController.navigate("HomeScreen") },
                         ) {
@@ -100,10 +102,14 @@ fun BookListViewScreen(navController: NavController) {
                             contentDescription = "Volver",
                         )
                     }
+
                     Text(
                         text = "Lista de libros",
                         modifier = Modifier.padding(16.dp),
                     )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
                     Image(
                         painter = painterResource(id = R.drawable.libro),
                         contentDescription = "Imagen de lista de libros"
