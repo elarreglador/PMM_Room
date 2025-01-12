@@ -110,7 +110,7 @@ fun BookAddScreen(navController: NavController) {
                 TextField(
                     value = year.value,
                     onValueChange = { newText -> year.value = newText },
-                    label = { Text("Año") },
+                    label = { Text("Año de la primera edicion") },
                     maxLines = 1, // Limita a una línea
                     singleLine = true, // Garantiza que sea un campo de una sola línea
                     modifier = Modifier.fillMaxWidth()
