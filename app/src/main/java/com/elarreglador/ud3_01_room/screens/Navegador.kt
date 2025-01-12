@@ -57,5 +57,13 @@ fun Navegador() {
             val bookId = backStackEntry.arguments?.getString("bookId")?.toInt() ?: 0
             BookEditScreen(navController, bookId)
         }
+
+        composable(
+            route = "BookViewScreen/{bookId}"  // Incluir el parámetro authorId en la ruta
+        ) { backStackEntry ->
+            // Obtener el valor de authorId de la ruta
+            val bookId = backStackEntry.arguments?.getString("bookId")?.toInt() ?: 0
+            BookViewScreen(navController, bookId)
+        }
     }
 }

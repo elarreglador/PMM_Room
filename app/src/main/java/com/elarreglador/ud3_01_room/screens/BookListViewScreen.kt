@@ -2,6 +2,7 @@ package com.elarreglador.ud3_01_room.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,7 +19,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -162,25 +165,47 @@ fun BookListViewScreen(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-                                Box( // espacio para la id del libro y boton editar
+
+
+                                Column( // espacio para el titulo y el autor
                                     modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.secondary)
-                                        .widthIn(min = 60.dp)
+                                        .fillMaxWidth()
+                                        .background(MaterialTheme.colorScheme.primary)
+                                        .padding(6.dp)
                                         .fillMaxHeight()
                                 ) {
-                                    Column {
-                                        Text(
-                                            text = "ID:${book.id}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSecondary,
+                                    Text(
+                                        text = "${book.title} (${book.year})\n$authorName" ,
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                    )
+
+                                    Row (
+
+                                    ){
+
+                                        Box( // espacio para la id del libro
                                             modifier = Modifier
-                                        )
+                                                .background(MaterialTheme.colorScheme.tertiary)
+                                                .widthIn(min = 60.dp)
+                                                .fillMaxHeight()
+                                        ) {
+                                            Column {
+                                                Text(
+                                                    text = "ID:${book.id}",
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = MaterialTheme.colorScheme.onTertiary,
+                                                    modifier = Modifier
+                                                )
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.weight(1f))
 
                                         Button(
                                             onClick = {
                                                 navController.navigate("BookEditScreen/${book.id}")
                                             },
-                                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                                            colors = ButtonDefaults.buttonColors(
                                                 containerColor = MaterialTheme.colorScheme.secondary,
                                                 contentColor = MaterialTheme.colorScheme.onSecondary
                                             ),
@@ -195,20 +220,29 @@ fun BookListViewScreen(navController: NavController) {
                                                     .size(20.dp)
                                             )
                                         }
-                                    }
-                                }
 
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(MaterialTheme.colorScheme.primary)
-                                        .padding(6.dp)
-                                        .fillMaxHeight()
-                                ) {
-                                    Text(
-                                        text = "${book.title} (${book.year})\n$authorName" ,
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                    )
+                                        Spacer(modifier = Modifier.width(8.dp))
+
+                                        Button(
+                                            onClick = {
+                                                navController.navigate("BookViewScreen/${book.id}")
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                            ),
+                                            shape = MaterialTheme.shapes.small,
+                                            modifier = Modifier
+                                                .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Info,
+                                                contentDescription = "info.",
+                                                modifier = Modifier
+                                                    .size(20.dp)
+                                            )
+                                        }
+                                    }
                                 }
                             }
 
