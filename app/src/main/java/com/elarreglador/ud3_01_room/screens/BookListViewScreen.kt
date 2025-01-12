@@ -60,7 +60,6 @@ fun BookListViewScreen(navController: NavController) {
         val books = if (searchQuery.value.isEmpty()) {
             db.bookDao().getAllBooks()
         } else {
-            // TODO: Se duplican libros !!
             db.bookDao().getBooksByTitle("%${searchQuery.value}%") +
                     db.bookDao().getBooksByAuthorName("%${searchQuery.value}%") +
                     db.bookDao().getBooksByAuthorSurname("%${searchQuery.value}%")
@@ -72,7 +71,10 @@ fun BookListViewScreen(navController: NavController) {
                 db.authorDao().getAuthorById(book.authorId)?.surname)
             book to authorName
         }
-        booksWithAuthorsState.value = booksWithAuthors
+        // Eliminar duplicados usando distinctBy filtrando por la ID del libro
+        val uniqueBooksWithAuthors = booksWithAuthors.distinctBy { it.first.id }
+
+        booksWithAuthorsState.value = uniqueBooksWithAuthors
     }
 
     Scaffold(
@@ -106,7 +108,7 @@ fun BookListViewScreen(navController: NavController) {
                     value = searchQuery.value,
                     onValueChange = { searchQuery.value = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Buscar libro ...") },
+                    placeholder = { Text("Buscar libro...") },
                     singleLine = true,
                     maxLines = 1
                 )
