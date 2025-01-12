@@ -77,7 +77,9 @@ fun AuthorListViewScreen(navController: NavController) {
 
             ) {
                 Row {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(
+                        onClick = { navController.navigate("HomeScreen") },
+                    ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Volver",

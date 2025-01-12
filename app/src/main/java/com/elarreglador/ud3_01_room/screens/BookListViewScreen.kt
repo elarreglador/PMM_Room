@@ -60,6 +60,7 @@ fun BookListViewScreen(navController: NavController) {
         val books = if (searchQuery.value.isEmpty()) {
             db.bookDao().getAllBooks()
         } else {
+            // TODO: Se duplican libros !!
             db.bookDao().getBooksByTitle("%${searchQuery.value}%") +
                     db.bookDao().getBooksByAuthorName("%${searchQuery.value}%") +
                     db.bookDao().getBooksByAuthorSurname("%${searchQuery.value}%")
@@ -83,7 +84,9 @@ fun BookListViewScreen(navController: NavController) {
                     .padding(start = 0.dp, top = 25.dp, end = 0.dp)
             ) {
                 Row {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(
+                        onClick = { navController.navigate("HomeScreen") },
+                        ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Volver",

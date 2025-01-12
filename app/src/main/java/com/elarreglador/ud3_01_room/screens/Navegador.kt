@@ -9,11 +9,11 @@ import androidx.navigation.compose.composable
 @Composable
 fun Navegador() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "principal") {
+    NavHost(navController = navController, startDestination = "HomeScreen") {
         // (route es el apodo para llamar a la ventana) {funcion/pantalla + parametro a usar}
 
         composable( // ventana principal o home
-            route = "principal"
+            route = "HomeScreen"
         ) {
             HomeScreen(navController)
         }
