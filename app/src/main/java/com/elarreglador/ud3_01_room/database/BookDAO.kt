@@ -31,6 +31,13 @@ interface BookDao {
     """)
     suspend fun getBooksByAuthorName(authorName: String): List<Book>  // Buscar libros por autor
 
+    @Query("""
+        SELECT books.* FROM books
+        INNER JOIN authors ON books.authorId = authors.id
+        WHERE authors.surname LIKE :authorSurname
+    """)
+    suspend fun getBooksByAuthorSurname(authorSurname: String): List<Book>  // Buscar libros por autor
+
     @Query("SELECT * FROM books WHERE title LIKE :bookTitle")  // Buscar por título del libro
     suspend fun getBooksByTitle(bookTitle: String): List<Book>
 

@@ -40,40 +40,47 @@ import com.elarreglador.ud3_01_room.database.MyDatabase
 
 @Composable
 fun BookListViewScreen(navController: NavController) {
-
-    // Declarar la base de datos antes de los LaunchedEffect
     val context = LocalContext.current
     val db = remember { MyDatabase.getDatabase(context) }
-    // Estado para almacenar la lista de libros
-    val bookState = remember { mutableStateOf<List<Book>>(emptyList()) }
-    // Estado para almacenar la consulta de búsqueda
+    val booksWithAuthorsState = remember { mutableStateOf<List<Pair<Book, String>>>(emptyList()) }
     val searchQuery = remember { mutableStateOf("") }
 
-    // Recuperar todos los autores al cargar la pantalla
+    // Cargar libros y autores al inicio
     LaunchedEffect(Unit) {
-        bookState.value = db.bookDao().getAllBooks()
+        val books = db.bookDao().getAllBooks()
+        val booksWithAuthors = books.map { book ->
+            val authorName = db.authorDao().getAuthorById(book.authorId)?.name ?: "Autor desconocido"
+            book to authorName
+        }
+        booksWithAuthorsState.value = booksWithAuthors
     }
 
-    // Actualizar la lista en función de la búsqueda
+    // Actualizar libros y autores según la búsqueda
     LaunchedEffect(searchQuery.value) {
-        if (searchQuery.value.isEmpty()) {
-            // Si el campo de búsqueda está vacío, mostrar todos los libros
-            bookState.value = db.bookDao().getAllBooks()
+        val books = if (searchQuery.value.isEmpty()) {
+            db.bookDao().getAllBooks()
         } else {
-            // Filtrar por nombre y apellido
-            bookState.value = db.bookDao().getBooksByTitle("%${searchQuery.value}%") +
-                    db.bookDao().getBooksByAuthorName("%${searchQuery.value}%")
+            db.bookDao().getBooksByTitle("%${searchQuery.value}%") +
+                    db.bookDao().getBooksByAuthorName("%${searchQuery.value}%") +
+                    db.bookDao().getBooksByAuthorSurname("%${searchQuery.value}%")
         }
+        val booksWithAuthors = books.map { book ->
+            val authorName =
+                (db.authorDao().getAuthorById(book.authorId)?.name +
+                " " +
+                db.authorDao().getAuthorById(book.authorId)?.surname)
+            book to authorName
+        }
+        booksWithAuthorsState.value = booksWithAuthors
     }
 
     Scaffold(
         topBar = {
-            Column (
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary) // Fondo de color
-                    .padding(start = 0.dp, top = 25.dp, end = 0.dp), // Nos separa de la topBar
-
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(start = 0.dp, top = 25.dp, end = 0.dp)
             ) {
                 Row {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -82,24 +89,20 @@ fun BookListViewScreen(navController: NavController) {
                             contentDescription = "Volver",
                         )
                     }
-
                     Text(
                         text = "Lista de libros",
                         modifier = Modifier.padding(16.dp),
                     )
-
                     Image(
                         painter = painterResource(id = R.drawable.libro),
                         contentDescription = "Imagen de lista de libros"
                     )
                 }
 
-                // Barra de búsqueda
                 TextField(
                     value = searchQuery.value,
                     onValueChange = { searchQuery.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Buscar libro ...") },
                     singleLine = true,
                     maxLines = 1
@@ -110,11 +113,10 @@ fun BookListViewScreen(navController: NavController) {
             FloatingActionButton(
                 onClick = { navController.navigate("BookAddScreen") },
                 containerColor = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .shadow(
-                        elevation = 12.dp,  // Sombra más pronunciada
-                        shape = MaterialTheme.shapes.small,
-                    )
+                modifier = Modifier.shadow(
+                    elevation = 12.dp,
+                    shape = MaterialTheme.shapes.small,
+                )
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -122,33 +124,29 @@ fun BookListViewScreen(navController: NavController) {
                 )
             }
         },
-        bottomBar = {
-        },
         content = { paddingValues ->
-            // Contenido principal, respetando los paddings del Scaffold
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(16.dp)
             ) {
-                if (bookState.value.isEmpty()) {
+                if (booksWithAuthorsState.value.isEmpty()) {
                     Text("No hay libros disponibles.")
                 } else {
                     LazyColumn {
-                        items(bookState.value.size) { index ->
+                        items(booksWithAuthorsState.value.size) { index ->
+                            val (book, authorName) = booksWithAuthorsState.value[index]
 
-                            Row (
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            ){
-                                Box( // box para la id del autor
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Box(
                                     modifier = Modifier
                                         .background(MaterialTheme.colorScheme.secondary)
-                                        .widthIn(min = 60.dp) // Establece un ancho mínimo
+                                        .widthIn(min = 60.dp)
                                         .fillMaxHeight()
                                 ) {
-                                    val book = bookState.value[index]
                                     Text(
                                         text = "${book.id}",
                                         color = MaterialTheme.colorScheme.onSecondary,
@@ -159,24 +157,18 @@ fun BookListViewScreen(navController: NavController) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .background(
-                                            color = MaterialTheme.colorScheme.primary,
-                                        )
+                                        .background(MaterialTheme.colorScheme.primary)
                                         .padding(6.dp)
                                         .fillMaxHeight()
                                 ) {
-                                    val book = bookState.value[index]
                                     Text(
-                                        text = "${book.title} (${book.year})\n${book.authorId} ",
+                                        text = "${book.title} (${book.year})\n$authorName" ,
                                         color = MaterialTheme.colorScheme.onPrimary,
                                     )
                                 }
                             }
 
-                            Spacer(
-                                modifier = Modifier
-                                    .height(8.dp)
-                            )
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
                     }
                 }
