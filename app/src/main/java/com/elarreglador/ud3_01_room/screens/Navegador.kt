@@ -55,7 +55,7 @@ fun Navegador() {
         ) { backStackEntry ->
             // Obtener el valor de authorId de la ruta
             val bookId = backStackEntry.arguments?.getString("bookId")?.toInt() ?: 0
-            AuthorEditScreen(navController, bookId)
+            BookEditScreen(navController, bookId)
         }
     }
 }
