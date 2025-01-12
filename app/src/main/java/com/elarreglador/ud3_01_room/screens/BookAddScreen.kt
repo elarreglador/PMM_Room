@@ -45,26 +45,36 @@ fun BookAddScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            Row (
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary) // Fondo de color
-                    .padding(25.dp), // Nos separa de la topBar
-
-                verticalAlignment = Alignment.CenterVertically // Alinea verticalmente al centro
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(start = 0.dp, top = 25.dp, end = 0.dp)
             ) {
+                Row (
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    IconButton(
+                        onClick = { navController.navigate("BookListViewScreen") },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver",
+                        )
+                    }
 
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons. AutoMirrored. Filled. ArrowBack,
-                        contentDescription = "Volver",
+                    Text(
+                        text = "Agregar libro",
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Image(
+                        painter = painterResource(id = R.drawable.libro),
+                        contentDescription = "Imagen de libro"
                     )
                 }
-
-                Text(
-                    text = "Nuevo libro",
-                    modifier = Modifier.padding(16.dp),
-                )
             }
         },
         bottomBar = {},
@@ -77,11 +87,6 @@ fun BookAddScreen(navController: NavController) {
                     .padding(paddingValues) // Aplica el padding del Scaffold
                     .padding(16.dp) // Agrega un padding adicional si es necesario
             ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.libro),
-                    contentDescription = "Imagen de libro"
-                )
 
                 Spacer (modifier = Modifier.height(10.dp))
 

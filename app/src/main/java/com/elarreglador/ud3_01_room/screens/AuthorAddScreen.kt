@@ -48,26 +48,36 @@ fun AuthorAddScreen(navController: NavController) {
     Scaffold(
 
         topBar = {
-            Row (
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary) // Fondo de color
-                    .padding(25.dp), // Nos separa de la topBar
-
-                verticalAlignment = Alignment.CenterVertically // Alinea verticalmente al centro
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(start = 0.dp, top = 25.dp, end = 0.dp)
             ) {
+                Row (
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    IconButton(
+                        onClick = { navController.navigate("AuthorListViewScreen") },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver",
+                        )
+                    }
 
-                IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(
-                        imageVector = Icons. AutoMirrored. Filled. ArrowBack,
-                        contentDescription = "Volver",
+                    Text(
+                        text = "Agregar Autor",
+                        modifier = Modifier.padding(16.dp),
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Image(
+                        painter = painterResource(id = R.drawable.autor),
+                        contentDescription = "Imagen de libro"
                     )
                 }
-
-                Text(
-                    text = "Nuevo autor",
-                    modifier = Modifier.padding(16.dp),
-                )
             }
         },
         bottomBar = {},
