@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -135,8 +138,7 @@ fun AuthorListViewScreen(navController: NavController) {
                 )
             }
         },
-        bottomBar = {
-        },
+        bottomBar = {},
         content = { paddingValues ->
             // Contenido principal, respetando los paddings del Scaffold
             Column(
@@ -152,65 +154,87 @@ fun AuthorListViewScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(8.dp))
                     LazyColumn {
                         items(authorsState.value.size) { index ->
+                            val author = authorsState.value[index]
 
                             Row (
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ){
-                                Column ( // box para la id del autor y boton de edicion
-                                    modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.secondary)
-                                        .widthIn(min = 60.dp) // Establece un ancho mínimo
-                                        .fillMaxHeight()
-                                ) {
-                                    val author = authorsState.value[index]
-                                    Text(
-                                        text = "ID: ${author.id}",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSecondary,
-                                    )
-
-                                    Button(
-                                        onClick = {
-                                            navController.navigate("AuthorEditScreen/${author.id}")
-                                        },
-                                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                                            containerColor = MaterialTheme.colorScheme.secondary,
-                                            contentColor = MaterialTheme.colorScheme.onSecondary
-                                        ),
-                                        shape = MaterialTheme.shapes.small,
-                                        modifier = Modifier
-                                            .padding(0.dp, 0.dp, 0.dp, 0.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Edit,
-                                            contentDescription = "Editar",
-                                            modifier = Modifier
-                                                .size(20.dp)
-                                        )
-                                    }
-                                }
-
-                                Box( // box para el nombre del autor
+                                Column ( // espacio para el nombre y el autor
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .background(
-                                            color = MaterialTheme.colorScheme.primary,
-                                        )
+                                        .background(MaterialTheme.colorScheme.primary)
                                         .padding(6.dp)
                                         .fillMaxHeight()
                                 ) {
-                                    val author = authorsState.value[index]
                                     Text(
-                                        text = "${author.name} ${author.surname} \n${author.country}",
+                                        text = "${author.name} ${author.surname}",
                                         color = MaterialTheme.colorScheme.onPrimary,
                                     )
+
+//
+                                    Row() {
+                                        Box(
+                                            modifier = Modifier
+                                                .background(MaterialTheme.colorScheme.tertiary)
+                                                .widthIn(min = 60.dp)
+                                                .fillMaxHeight()
+                                        ) {
+                                            Text(
+                                                text = "ID: ${author.id}",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSecondary,
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.weight(1f))
+
+                                        Button(
+                                            onClick = {
+                                                navController.navigate("AuthorEditScreen/${author.id}")
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                            ),
+                                            shape = MaterialTheme.shapes.small,
+                                            modifier = Modifier
+                                                .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Edit,
+                                                contentDescription = "Editar",
+                                                modifier = Modifier
+                                                    .size(20.dp)
+                                            )
+                                        }
+
+                                        Spacer(modifier = Modifier.width(8.dp))
+
+                                        Button(
+                                            onClick = {
+                                                navController.navigate("AuthorViewScreen/${author.id}")
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.secondary,
+                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                            ),
+                                            shape = MaterialTheme.shapes.small,
+                                            modifier = Modifier
+                                                .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.Info,
+                                                contentDescription = "info.",
+                                                modifier = Modifier
+                                                    .size(20.dp)
+                                            )
+                                        }
+                                    }
                                 }
                             }
 
-                            Spacer(
-                                modifier = Modifier
-                                    .height(8.dp)
+                            Spacer( modifier = Modifier.height(8.dp)
                             )
                         }
                     }

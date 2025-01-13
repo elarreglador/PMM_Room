@@ -165,8 +165,6 @@ fun BookListViewScreen(navController: NavController) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                             ) {
-
-
                                 Column( // espacio para el titulo y el autor
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -180,23 +178,19 @@ fun BookListViewScreen(navController: NavController) {
                                     )
 
                                     Row (
-
                                     ){
-
                                         Box( // espacio para la id del libro
                                             modifier = Modifier
                                                 .background(MaterialTheme.colorScheme.tertiary)
                                                 .widthIn(min = 60.dp)
                                                 .fillMaxHeight()
                                         ) {
-                                            Column {
-                                                Text(
-                                                    text = "ID:${book.id}",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = MaterialTheme.colorScheme.onTertiary,
-                                                    modifier = Modifier
-                                                )
-                                            }
+                                            Text(
+                                                text = "ID:${book.id}",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onTertiary,
+                                                modifier = Modifier
+                                            )
                                         }
 
                                         Spacer(modifier = Modifier.weight(1f))
