@@ -43,7 +43,7 @@ fun Navegador() {
         ) { backStackEntry ->
             // Obtener el valor de authorId de la ruta
             val authorId = backStackEntry.arguments?.getString("authorId")?.toInt() ?: 0
-            BookViewScreen(navController, authorId)
+            AuthorViewScreen(navController, authorId)
         }
 
         composable(
