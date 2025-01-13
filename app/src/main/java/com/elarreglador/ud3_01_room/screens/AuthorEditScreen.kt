@@ -107,7 +107,7 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
                         .widthIn(min = 60.dp)
                 ) {
                     Text(
-                        text = ("Book ID: ${authorId}"),
+                        text = ("author ID: ${authorId}"),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier

@@ -2,6 +2,7 @@ package com.elarreglador.ud3_01_room.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
@@ -97,7 +99,6 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                     .padding(16.dp) // Agrega un padding adicional si es necesario
                     .fillMaxSize()
             ) {
-
                 Spacer (modifier = Modifier.height(10.dp))
 
                 Column (
@@ -106,6 +107,21 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                         .background(MaterialTheme.colorScheme.primary)
                         .padding(8.dp)
                 ){
+                    Box( // espacio para la id del libro
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.tertiary)
+                            .widthIn(min = 60.dp)
+                    ) {
+                        Text(
+                            text = ("author ID: ${authorId}"),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier
+                        )
+                    }
+
+                    Spacer (modifier = Modifier.height(10.dp))
+
                     Text(
                         text = "Nombre: ${name.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
