@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,17 +13,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -46,8 +40,8 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
     var title = remember { mutableStateOf("") }
     var authorId = remember { mutableStateOf("") }
     var year = remember { mutableStateOf("") }
-    var nombre = remember { mutableStateOf("") }
-    var apellido = remember { mutableStateOf("") }
+    var name = remember { mutableStateOf("") }
+    var surname = remember { mutableStateOf("") }
 
     // Llamada asíncrona para obtener los datos del libro
     LaunchedEffect(bookId) {
@@ -61,8 +55,8 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
         // Obtener el nombre del autor a partir de su ID
         val escritor = miBD.authorDao().getAuthorById(authorId.value.toLong())
         escritor?.let {
-            nombre.value = it.name
-            apellido.value = it.surname
+            name.value = it.name
+            surname.value = it.surname
         }
     }
 
@@ -144,7 +138,7 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Autor: ${nombre.value} ${apellido.value}",
+                        text = "Autor: ${name.value} ${surname.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)

@@ -42,8 +42,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.database.MyDatabase
-import com.elarreglador.ud3_01_room.ui.theme.Betun
-import com.elarreglador.ud3_01_room.ui.theme.Marfil
 
 
 @Composable

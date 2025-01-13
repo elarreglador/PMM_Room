@@ -2,7 +2,6 @@ package com.elarreglador.ud3_01_room.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +40,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
-import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.database.Book
 import com.elarreglador.ud3_01_room.database.MyDatabase
 
