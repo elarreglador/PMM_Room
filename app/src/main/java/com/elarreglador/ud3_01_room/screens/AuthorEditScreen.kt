@@ -2,6 +2,7 @@ package com.elarreglador.ud3_01_room.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -22,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,6 +44,17 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
     var name = remember { mutableStateOf("") }
     var surname = remember { mutableStateOf("") }
     var country = remember { mutableStateOf("") }
+
+    LaunchedEffect(authorId) {
+        // Obtener el nombre del autor a partir de su ID
+        val escritor = miBD.authorDao().getAuthorById(authorId.toLong())
+        // ?. asegura que el bloque solo se ejecutará si escritor no es null.
+        escritor?.let {
+            name.value = it.name
+            surname.value = it.surname
+            country.value = it.country
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -86,6 +100,19 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
                     .padding(paddingValues) // Aplica el padding del Scaffold
                     .padding(16.dp) // Agrega un padding adicional si es necesario
             ) {
+
+                Box( // espacio para la id del libro
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.tertiary)
+                        .widthIn(min = 60.dp)
+                ) {
+                    Text(
+                        text = ("Book ID: ${authorId}"),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                    )
+                }
 
                 Spacer (modifier = Modifier.height(10.dp))
 
