@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
@@ -132,11 +133,11 @@ fun AuthorViewScreen(navController: NavController , bookId: Int) {
                         navController.navigate("AuthorEditScreen/$bookId")
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Eliminar",
+                            imageVector = Icons.Default.Create,
+                            contentDescription = "Editar",
                             modifier = androidx.compose.ui.Modifier.size(20.dp)
                         )
-                        Text(" Editar autor")
+                        Text("Editar autor")
                     }
                 }
 
