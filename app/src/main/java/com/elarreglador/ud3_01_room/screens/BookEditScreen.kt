@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,6 +41,15 @@ fun BookEditScreen(navController: NavController , bookId: Int) {
     var title = remember { mutableStateOf("") }
     var authorId = remember { mutableStateOf("") }
     var year = remember { mutableStateOf("") }
+
+    LaunchedEffect(bookId) {
+        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si es necesario
+        book?.let {
+            title.value = it.title
+            authorId.value = it.authorId.toString() // Cambia según cómo guardes los datos del autor
+            year.value = it.year.toString() // Cambia según el campo correspondiente
+        }
+    }
 
     Scaffold(
         topBar = {
