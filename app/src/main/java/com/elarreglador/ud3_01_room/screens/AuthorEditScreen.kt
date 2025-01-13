@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
+import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.database.MyDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -174,7 +175,18 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
                     }
 
                     Button(onClick = {
-                        navController.navigate("BookListViewScreen")
+                        // Crear un objeto Author con los datos actualizados
+                        val author = Author(
+                            id = authorId.toLong(),
+                            name = name.value,
+                            surname = surname.value,
+                            country = country.value)
+                        // Ejecutar la operación de update en un hilo en segundo plano
+                        CoroutineScope(Dispatchers.IO).launch {
+                            miBD.authorDao().updateAuthor(author)
+                        }
+                        // Regresa al listado de autores
+                        navController.navigate("AuthorViewScreen/${authorId}")
                     }) {
                         Icon(
                             imageVector = Icons.Default.Done,
@@ -185,7 +197,7 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
                     }
 
                     Button(onClick = {
-                        navController.navigate("BookListViewScreen")
+                        navController.navigate("AuthorListViewScreen")
                     }) {
                         Icon(
                             imageVector = Icons.Default.Close,
