@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
+import com.elarreglador.ud3_01_room.database.Book
 import com.elarreglador.ud3_01_room.database.MyDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -171,7 +172,19 @@ fun BookEditScreen(navController: NavController , bookId: Int) {
                     }
 
                     Button(onClick = {
-                        navController.navigate("BookListViewScreen")
+                        // Crear un objeto Book con los datos actualizados
+                        val book = Book(
+                            id = bookId.toLong(),
+                            title = title.value,
+                            authorId = authorId.value.toLong(),
+                            year = year.value.toInt()
+                        )
+                        // Ejecutar la operación de borrado en un hilo en segundo plano
+                        CoroutineScope(Dispatchers.IO).launch {
+                            miBD.bookDao().updateBook(book)
+                        }
+                        // Regresa al listado de libros
+                        navController.navigate("BookViewScreen/$bookId")
                     }) {
                         Icon(
                             imageVector = Icons.Default.Done,
