@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
 import com.elarreglador.ud3_01_room.database.MyDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -155,7 +158,12 @@ fun AuthorEditScreen(navController: NavController , authorId: Int) {
                 ) {
 
                     Button(onClick = {
-                        navController.navigate("BookListViewScreen")
+                        // Ejecutar la operación de borrado en un hilo en segundo plano
+                        CoroutineScope(Dispatchers.IO).launch {
+                            miBD.authorDao().deleteAuthor(authorId.toLong())
+                        }
+                        // Regresa al listado de autores
+                        navController.navigate("AuthorListViewScreen")
                     }) {
                         Icon(
                             imageVector = Icons.Default.Delete,
