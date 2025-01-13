@@ -91,36 +91,36 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
 
                 Spacer (modifier = Modifier.height(10.dp))
 
-                TextField(
-                    value = title.value,
-                    onValueChange = { newText -> title.value = newText },
-                    label = { Text("Titulo") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(8.dp)
+                ){
+                    Text(
+                        text = "Titulo: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
 
-                Spacer (modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                TextField(
-                    value = authorId.value,
-                    onValueChange = { newText -> authorId.value = newText },
-                    label = { Text("authorId") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    Text(
+                        text = "Autor: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                Spacer (modifier = Modifier.height(10.dp))
-
-                TextField(
-                    value = year.value,
-                    onValueChange = { newText -> year.value = newText },
-                    label = { Text("Año de la primera edicion") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    Text(
+                        text = "Fecha primera edicion: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
+                }
 
                 Spacer (modifier = Modifier.height(10.dp))
 

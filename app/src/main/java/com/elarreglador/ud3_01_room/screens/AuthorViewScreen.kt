@@ -37,7 +37,7 @@ import com.elarreglador.ud3_01_room.R
 import com.elarreglador.ud3_01_room.database.MyDatabase
 
 @Composable
-fun AuthorViewScreen(navController: NavController , bookId: Int) {
+fun AuthorViewScreen(navController: NavController , authorId: Int) {
     var context = LocalContext.current
     var miBD = MyDatabase.getDatabase(context)
     var name = remember { mutableStateOf("") }
@@ -87,40 +87,41 @@ fun AuthorViewScreen(navController: NavController , bookId: Int) {
                 modifier = Modifier
                     .padding(paddingValues) // Aplica el padding del Scaffold
                     .padding(16.dp) // Agrega un padding adicional si es necesario
+                    .fillMaxSize()
             ) {
 
                 Spacer (modifier = Modifier.height(10.dp))
 
-                TextField(
-                    value = name.value,
-                    onValueChange = { newText -> name.value = newText },
-                    label = { Text("Nombre") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(8.dp)
+                ){
+                    Text(
+                        text = "Nombre: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
 
-                Spacer (modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                TextField(
-                    value = surname.value,
-                    onValueChange = { newText -> surname.value = newText },
-                    label = { Text("Apellido") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    Text(
+                        text = "Apellidos: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                Spacer (modifier = Modifier.height(10.dp))
-
-                TextField(
-                    value = country.value,
-                    onValueChange = { newText -> country.value = newText },
-                    label = { Text("Pais") },
-                    maxLines = 1, // Limita a una línea
-                    singleLine = true, // Garantiza que sea un campo de una sola línea
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    Text(
+                        text = "Pais: XXXXXXXX",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                    )
+                }
 
                 Spacer (modifier = Modifier.height(10.dp))
 
@@ -130,14 +131,14 @@ fun AuthorViewScreen(navController: NavController , bookId: Int) {
                 ) {
 
                     Button(onClick = {
-                        navController.navigate("AuthorEditScreen/$bookId")
+                        navController.navigate("AuthorEditScreen/$authorId")
                     }) {
                         Icon(
                             imageVector = Icons.Default.Create,
                             contentDescription = "Editar",
                             modifier = androidx.compose.ui.Modifier.size(20.dp)
                         )
-                        Text("Editar autor")
+                        Text(" Editar autor")
                     }
                 }
 
