@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -169,6 +170,17 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
                             modifier = androidx.compose.ui.Modifier.size(20.dp)
                         )
                         Text(" Editar libro")
+                    }
+
+                    Button(onClick = {
+                        navController.navigate("BookListViewScreen")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Done,
+                            contentDescription = "Ok",
+                            modifier = androidx.compose.ui.Modifier.size(20.dp)
+                        )
+                        Text(" Ok")
                     }
                 }
 
