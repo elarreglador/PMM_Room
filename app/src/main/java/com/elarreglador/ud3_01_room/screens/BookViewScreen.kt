@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -25,6 +27,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -43,6 +46,25 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
     var title = remember { mutableStateOf("") }
     var authorId = remember { mutableStateOf("") }
     var year = remember { mutableStateOf("") }
+    var nombre = remember { mutableStateOf("") }
+    var apellido = remember { mutableStateOf("") }
+
+    // Llamada asíncrona para obtener los datos del libro
+    LaunchedEffect(bookId) {
+        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si es necesario
+        book?.let {
+            title.value = it.title
+            authorId.value = it.authorId.toString() // Cambia según cómo guardes los datos del autor
+            year.value = it.year.toString() // Cambia según el campo correspondiente
+        }
+
+        // Obtener el nombre del autor a partir de su ID
+        val escritor = miBD.authorDao().getAuthorById(authorId.value.toLong())
+        escritor?.let {
+            nombre.value = it.name
+            apellido.value = it.surname
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -97,8 +119,23 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
                         .background(MaterialTheme.colorScheme.primary)
                         .padding(8.dp)
                 ){
+                    Box( // espacio para la id del libro
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.tertiary)
+                            .widthIn(min = 60.dp)
+                    ) {
+                        Text(
+                            text = ("Book ID: ${bookId}"),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     Text(
-                        text = "Titulo: XXXXXXXX",
+                        text = ("Titulo: ${title.value}"),
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -107,7 +144,7 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Autor: XXXXXXXX",
+                        text = "Autor: ${nombre.value} ${apellido.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -115,7 +152,7 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Fecha primera edicion: XXXXXXXX",
+                        text = "Fecha primera edicion: ${year.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
