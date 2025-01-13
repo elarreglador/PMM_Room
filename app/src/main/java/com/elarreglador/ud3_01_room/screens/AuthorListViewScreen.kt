@@ -57,7 +57,7 @@ fun AuthorListViewScreen(navController: NavController) {
 
     // Recuperar todos los autores al cargar la pantalla
     LaunchedEffect(Unit) {
-        authorsState.value = db.authorDao().getAllAuthors()
+        authorsState.value = db.authorDao().getAllAuthors().sortedBy { it.name }
     }
 
     // Actualizar la lista en función de la búsqueda
