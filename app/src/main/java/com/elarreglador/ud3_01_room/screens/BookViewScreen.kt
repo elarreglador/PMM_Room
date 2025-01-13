@@ -55,6 +55,7 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
 
         // Obtener el nombre del autor a partir de su ID
         val escritor = miBD.authorDao().getAuthorById(authorId.value.toLong())
+        // ?. asegura que el bloque solo se ejecutará si escritor no es null.
         escritor?.let {
             name.value = it.name
             surname.value = it.surname

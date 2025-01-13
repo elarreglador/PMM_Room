@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,6 +40,17 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
     var name = remember { mutableStateOf("") }
     var surname = remember { mutableStateOf("") }
     var country = remember { mutableStateOf("") }
+
+    LaunchedEffect(authorId) {
+        // Obtener el nombre del autor a partir de su ID
+        val escritor = miBD.authorDao().getAuthorById(authorId.toLong())
+        // ?. asegura que el bloque solo se ejecutará si escritor no es null.
+        escritor?.let {
+            name.value = it.name
+            surname.value = it.surname
+            country.value = it.country
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -94,7 +107,7 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                         .padding(8.dp)
                 ){
                     Text(
-                        text = "Nombre: XXXXXXXX",
+                        text = "Nombre: ${name.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -103,7 +116,7 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Apellidos: XXXXXXXX",
+                        text = "Apellidos: ${surname.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -111,7 +124,7 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Pais: XXXXXXXX",
+                        text = "Pais: ${country.value}",
                         color = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier
                             .align(Alignment.Start)
@@ -134,6 +147,17 @@ fun AuthorViewScreen(navController: NavController , authorId: Int) {
                             modifier = androidx.compose.ui.Modifier.size(20.dp)
                         )
                         Text(" Editar autor")
+                    }
+
+                    Button(onClick = {
+                        navController.navigate("AuthorListViewScreen")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Done,
+                            contentDescription = "Ok",
+                            modifier = androidx.compose.ui.Modifier.size(20.dp)
+                        )
+                        Text(" Ok")
                     }
                 }
 
