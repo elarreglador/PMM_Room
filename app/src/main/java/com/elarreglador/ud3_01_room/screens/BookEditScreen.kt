@@ -2,6 +2,7 @@ package com.elarreglador.ud3_01_room.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -33,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.elarreglador.ud3_01_room.R
 import com.elarreglador.ud3_01_room.database.MyDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun BookEditScreen(navController: NavController , bookId: Int) {
@@ -96,6 +101,19 @@ fun BookEditScreen(navController: NavController , bookId: Int) {
                     .padding(16.dp) // Agrega un padding adicional si es necesario
             ) {
 
+                Box( // espacio para la id del libro
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.tertiary)
+                        .widthIn(min = 60.dp)
+                ) {
+                    Text(
+                        text = ("Book ID: ${bookId}"),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        modifier = Modifier
+                    )
+                }
+
                 Spacer (modifier = Modifier.height(10.dp))
 
                 TextField(
@@ -137,6 +155,11 @@ fun BookEditScreen(navController: NavController , bookId: Int) {
                     ) {
 
                     Button(onClick = {
+                        // Ejecutar la operación de borrado en un hilo en segundo plano
+                        CoroutineScope(Dispatchers.IO).launch {
+                            miBD.bookDao().deleteBook(bookId.toLong())
+                        }
+                        // Regresa al listado de libros
                         navController.navigate("BookListViewScreen")
                     }) {
                         Icon(
