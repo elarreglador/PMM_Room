@@ -36,4 +36,7 @@ interface AuthorDao {
 
     @Query("DELETE FROM authors WHERE id = :authorId")
     suspend fun deleteAuthor(authorId: Long) // Eliminar autor por id
+
+    @Query("DELETE FROM authors")
+    suspend fun deleteAllAuthors() // Eliminar todos los autores
 }

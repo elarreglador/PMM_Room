@@ -43,4 +43,7 @@ interface BookDao {
 
     @Query("DELETE FROM books WHERE id = :bookId")
     suspend fun deleteBook(bookId: Long) // Eliminar libro por id
+
+    @Query("DELETE FROM books")
+    suspend fun deleteAllBooks() // Eliminar todos los autores
 }

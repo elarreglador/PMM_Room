@@ -197,18 +197,13 @@ fun AuthorAddScreen(navController: NavController) {
                     }
 
                     FloatingActionButton(
-                        onClick = if (isSwitchEnabled.value) {
-                            {
-                                val dbName = "myBD"
-                                val result = context.deleteDatabase(dbName)
-                                if (result) {
-                                    println("Base de datos borrada exitosamente.")
-                                } else {
-                                    println("No se pudo borrar la base de datos o no existe.")
-                                }
+                        onClick = {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                // Borrar todos los autores y libros
+                                miBD.authorDao().deleteAllAuthors()
+                                miBD.bookDao().deleteAllBooks()
                             }
-                        } else {
-                            {} // When switch is off, do nothing on click
+                            navController.navigate("HomeScreen")
                         },
                         containerColor = if (isSwitchEnabled.value) {
                             Color.Red
