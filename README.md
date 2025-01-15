@@ -66,7 +66,25 @@ HomeScreen
       BookViewScreen
 ```
 
-TODO: ### Capturas de pantalla
+### Capturas de pantalla
+
+<table>
+  <tr>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/HomeScreen.png?raw=true" alt="HomeScreen" width="200" title="HomeScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/AuthorListViewScreen.png?raw=true" alt="AuthorListViewScreen" width="200" title="AuthorListViewScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/AuthorAddScreen.png?raw=true" alt="AuthorAddScreen" width="200" title="AuthorAddScreen"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/AuthorEditScreen.png?raw=true" alt="AuthorEditScreen" width="200" title="AuthorEditScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/AuthorViewScreen.png?raw=true" alt="AuthorViewScreen" width="200" title="AuthorViewScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/BookListViewScreen.png?raw=true" alt="BookListViewScreen" width="200" title="BookListViewScreen"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/BookAddScreen.png?raw=true" alt="BookAddScreen" width="200" title="BookAddScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/BookEditScreen.png?raw=true" alt="BookEditScreen" width="200" title="BookEditScreen"></td>
+    <td><img src="https://github.com/elarreglador/PMM_Room/blob/main/SCREENSHOTS/BookViewScreen.png?raw=true" alt="BookViewScreen" width="200" title="BookViewScreen"></td>
+  </tr>
+</table>
 
 ## Zonas de codigo interesantes
 ### Room (Base de datos)
