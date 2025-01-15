@@ -4,19 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.elarreglador.ud3_01_room.database.Author
 import com.elarreglador.ud3_01_room.ui.theme.UD3_01_RoomTheme
-import com.elarreglador.ud3_01_room.database.Book
 import com.elarreglador.ud3_01_room.database.MyDatabase
-import com.elarreglador.ud3_01_room.screens.HomeScreen
 import com.elarreglador.ud3_01_room.screens.Navegador
 import kotlinx.coroutines.launch
 
