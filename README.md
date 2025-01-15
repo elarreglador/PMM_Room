@@ -54,6 +54,7 @@ Contiene las entidades y DAO de libro y author ademas de acceso singleton a la b
 
 Desde HomeScreen se puede acceder a la lista de autores o de libros, desde las listas podemos ir a agregar autor, editar autor o la info. del autor. Tambien existe navegacion entre estas tres ultimas.
 
+```
 HomeScreen
    AuthorListViewScreen
       AuthorAddScreen
@@ -63,6 +64,7 @@ HomeScreen
       BookAddScreen
       BookEditScreen
       BookViewScreen
+```
 
 TODO: ### Capturas de pantalla
 
