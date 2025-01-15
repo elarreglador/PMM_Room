@@ -1,7 +1,10 @@
 package com.elarreglador.ud3_01_room.screens
 
+import android.R.attr.enabled
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +12,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -18,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -25,6 +31,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -44,6 +52,7 @@ fun AuthorAddScreen(navController: NavController) {
     var name = remember { mutableStateOf("") }
     var surname = remember { mutableStateOf("") }
     var country = remember { mutableStateOf("") }
+    val isSwitchEnabled = remember { mutableStateOf(false) } // Estado del Switch
 
     Scaffold(
 
@@ -81,28 +90,7 @@ fun AuthorAddScreen(navController: NavController) {
             }
         },
         bottomBar = {},
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                val dbName = "myBD"
-                val result = context.deleteDatabase(dbName)
-                if (result) {
-                    println("Base de datos borrada exitosamente.")
-                } else {
-                    println("No se pudo borrar la base de datos o no existe.")
-                }
-            }) {
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Borrar Base de Datos"
-                    )
-                    Text(text = "Borrar BD")
-                }
-            }
-        },
+        floatingActionButton = {},
         content = { paddingValues ->
             // Contenido principal, respetando los paddings del Scaffold
             Column (
@@ -169,6 +157,83 @@ fun AuthorAddScreen(navController: NavController) {
                         navController.navigate("AuthorListViewScreen")
                     }) {
                         Text("Agregar autor")
+                    }
+                }
+
+                Spacer (modifier = Modifier.weight(1f))
+
+                Column (
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .background(MaterialTheme.colorScheme.tertiary)
+                        .border(
+                            width = 3.dp,
+                            color = Color.Red
+                        )
+
+                ){
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
+                        modifier = Modifier.padding(
+                            start = 10.dp,
+                            top = 10.dp,
+                            end = 10.dp,
+                            bottom = 0.dp
+                        )
+                    ) {
+                        Switch(
+                            checked = isSwitchEnabled.value,
+                            onCheckedChange = { isSwitchEnabled.value = it }
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "ATENCION: Desde aqui se habilita el boton rojo para borrado masivo de la base de datos de autores y libros.'",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onTertiary
+                        )
+                    }
+
+                    FloatingActionButton(
+                        onClick = if (isSwitchEnabled.value) {
+                            {
+                                val dbName = "myBD"
+                                val result = context.deleteDatabase(dbName)
+                                if (result) {
+                                    println("Base de datos borrada exitosamente.")
+                                } else {
+                                    println("No se pudo borrar la base de datos o no existe.")
+                                }
+                            }
+                        } else {
+                            {} // When switch is off, do nothing on click
+                        },
+                        containerColor = if (isSwitchEnabled.value) {
+                            Color.Red
+                        } else {
+                            Color.Gray
+                        },
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .alpha(if (isSwitchEnabled.value) 1f else 0f) // Invisible cuando el switch está apagado
+                            .then(
+                                if (isSwitchEnabled.value) Modifier else Modifier.height(0.dp).width(0.dp) // No especificas el tamaño cuando el switch está encendido
+                            )
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Borrar Base de Datos",
+                                modifier = Modifier.size(80.dp)
+                            )
+                            Text(text = "BORRAR TODOS LOS AUTORES Y LIBROS")
+                        }
+
                     }
                 }
 
