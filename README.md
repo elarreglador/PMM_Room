@@ -90,9 +90,13 @@ HomeScreen
 ### Room (Base de datos)
 
 **MyDatabase** es un archivo que contiene getDatabase, esta funcion llama a la base de datos donde tendremos nuestros libros y autores.
+
 **AuthorEntity** contiene la definicion de la entidad (tabla) author con sus correspondientes campos (name, surname, etc)
+
 **BookEntity** contiene la definicion de la entidad (tabla) book con sus correspondientes campos (title, authorId, etc)
+
 **AuthorDAO** contiene las funciones relativas a author como son agregar autor, editarlo, listar segun id, listar todos, etc
+
 **BookDAO** contiene las funciones relativas a libro como son agregar libro, editarlo, listar por autor, etc.
 
 **MainActivity** puedes ver comentado en este archivo la creacion de un autor y un libro de la forma mas basica posible
