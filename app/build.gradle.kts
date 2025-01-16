@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.elarreglador.ud3_01_room"
-        minSdk = 30
+        minSdk = 29
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
