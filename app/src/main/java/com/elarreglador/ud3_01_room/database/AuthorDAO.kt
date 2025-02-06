@@ -10,7 +10,7 @@ import androidx.room.Update
 interface AuthorDao {
 
     @Insert
-    suspend fun insertAuthor(author: Author) // Insertar autor
+    suspend fun insertAuthor(author: Author): Long // Insertar autor
 
     @Update
     suspend fun updateAuthor(author: Author) // Actualizar autor
