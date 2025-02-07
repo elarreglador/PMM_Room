@@ -9,34 +9,43 @@ import androidx.room.Update
 @Dao
 interface AuthorDao {
 
+    // Insertar autor
     @Insert
-    suspend fun insertAuthor(author: Author): Long // Insertar autor
+    suspend fun insertAuthor(author: Author): Long
 
+    // Actualizar autor
     @Update
-    suspend fun updateAuthor(author: Author) // Actualizar autor
+    suspend fun updateAuthor(author: Author)
 
+    // Buscar autor por id
     @Query("SELECT * FROM authors WHERE id = :authorId")
-    suspend fun getAuthorById(authorId: Long): Author? // Buscar autor por id
+    suspend fun getAuthorById(authorId: Long): Author?
 
+    // Buscar todos los autores
     @Query("SELECT * FROM authors")
-    suspend fun getAllAuthors(): List<Author> // Buscar todos los autores
+    suspend fun getAllAuthors(): List<Author>
 
+    // Buscar por nombre
     @Query("SELECT * FROM authors WHERE name LIKE :authorName")
-    suspend fun getAuthorsByName(authorName: String): List<Author>  // Buscar por nombre
+    suspend fun getAuthorsByName(authorName: String): List<Author>
 
+    // Buscar por apellido
     @Query("SELECT * FROM authors WHERE surname LIKE :authorSurname")
-    suspend fun getAuthorsBySurname(authorSurname: String): List<Author>  // Buscar por apellido
+    suspend fun getAuthorsBySurname(authorSurname: String): List<Author>
 
+    // Buscar autor por libro
     @Query("""
         SELECT authors.* FROM authors
         INNER JOIN books ON authors.id = books.authorId
         WHERE books.title LIKE '%' || :bookTitle || '%'
     """)
-    suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>  // Buscar autor por libro
+    suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>
 
+    // Eliminar autor por id
     @Query("DELETE FROM authors WHERE id = :authorId")
-    suspend fun deleteAuthor(authorId: Long) // Eliminar autor por id
+    suspend fun deleteAuthor(authorId: Long)
 
+    // Eliminar todos los autores
     @Query("DELETE FROM authors")
-    suspend fun deleteAllAuthors() // Eliminar todos los autores
+    suspend fun deleteAllAuthors()
 }

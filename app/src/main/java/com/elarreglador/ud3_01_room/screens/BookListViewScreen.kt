@@ -54,7 +54,9 @@ fun BookListViewScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         val books = db.bookDao().getAllBooks()
         val booksWithAuthors = books.map { book ->
-            val authorName = db.authorDao().getAuthorById(book.authorId)?.name ?: "Autor desconocido"
+            val authorName = db.authorDao().getAuthorById(book.authorId)
+                ?.name
+                ?: "Autor desconocido"
             book to authorName
         }
         booksWithAuthorsState.value = booksWithAuthors.sortedBy { it.first.title }
@@ -195,11 +197,14 @@ fun BookListViewScreen(navController: NavController) {
 
                                         Button(
                                             onClick = {
-                                                navController.navigate("BookEditScreen/${book.id}")
+                                                navController.navigate(
+                                                    "BookEditScreen/${book.id}")
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary,
-                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                                containerColor =
+                                                    MaterialTheme.colorScheme.secondary,
+                                                contentColor =
+                                                    MaterialTheme.colorScheme.onSecondary
                                             ),
                                             shape = MaterialTheme.shapes.small,
                                             modifier = Modifier
@@ -217,11 +222,14 @@ fun BookListViewScreen(navController: NavController) {
 
                                         Button(
                                             onClick = {
-                                                navController.navigate("BookViewScreen/${book.id}")
+                                                navController.navigate(
+                                                    "BookViewScreen/${book.id}")
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary,
-                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                                containerColor =
+                                                    MaterialTheme.colorScheme.secondary,
+                                                contentColor =
+                                                    MaterialTheme.colorScheme.onSecondary
                                             ),
                                             shape = MaterialTheme.shapes.small,
                                             modifier = Modifier

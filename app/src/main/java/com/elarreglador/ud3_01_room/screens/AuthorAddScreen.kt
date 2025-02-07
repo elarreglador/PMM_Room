@@ -190,7 +190,8 @@ fun AuthorAddScreen(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "ATENCION: Desde aqui se habilita el boton rojo para borrado masivo de la base de datos de autores y libros.'",
+                            text = "ATENCION: Desde aqui se habilita el boton rojo para " +
+                                    "borrado masivo de la base de datos de autores y libros.'",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onTertiary
                         )
@@ -213,9 +214,12 @@ fun AuthorAddScreen(navController: NavController) {
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
                             .padding(16.dp)
-                            .alpha(if (isSwitchEnabled.value) 1f else 0f) // Invisible cuando el switch está apagado
+                            // Invisible cuando el switch está apagado
+                            .alpha(if (isSwitchEnabled.value) 1f else 0f)
                             .then(
-                                if (isSwitchEnabled.value) Modifier else Modifier.height(0.dp).width(0.dp) // No especificas el tamaño cuando el switch está encendido
+                                if (isSwitchEnabled.value) Modifier
+                                // No especificas el tamaño cuando el switch está encendido
+                                else Modifier.height(0.dp).width(0.dp)
                             )
                     ) {
                         Row(

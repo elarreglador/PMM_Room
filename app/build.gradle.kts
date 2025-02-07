@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.elarreglador.ud3_01_room"
         minSdk = 29
-        targetSdk = 31
+        targetSdk = 31 // Google Play requires that apps target API level 33 or higher.
         versionCode = 1
         versionName = "1.0"
 
@@ -79,7 +79,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:2.6.1")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // 🚀 Nueva dependencia para corrutinas
+    // dependencia para corrutinas
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     // Pruebas instrumentadas
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

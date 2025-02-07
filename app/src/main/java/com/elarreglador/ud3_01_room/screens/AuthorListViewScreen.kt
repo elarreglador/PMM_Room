@@ -189,11 +189,14 @@ fun AuthorListViewScreen(navController: NavController) {
 
                                         Button(
                                             onClick = {
-                                                navController.navigate("AuthorEditScreen/${author.id}")
+                                                navController.navigate(
+                                                    "AuthorEditScreen/${author.id}")
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary,
-                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                                containerColor =
+                                                    MaterialTheme.colorScheme.secondary,
+                                                contentColor =
+                                                    MaterialTheme.colorScheme.onSecondary
                                             ),
                                             shape = MaterialTheme.shapes.small,
                                             modifier = Modifier
@@ -211,11 +214,14 @@ fun AuthorListViewScreen(navController: NavController) {
 
                                         Button(
                                             onClick = {
-                                                navController.navigate("AuthorViewScreen/${author.id}")
+                                                navController.navigate(
+                                                    "AuthorViewScreen/${author.id}")
                                             },
                                             colors = ButtonDefaults.buttonColors(
-                                                containerColor = MaterialTheme.colorScheme.secondary,
-                                                contentColor = MaterialTheme.colorScheme.onSecondary
+                                                containerColor =
+                                                    MaterialTheme.colorScheme.secondary,
+                                                contentColor =
+                                                    MaterialTheme.colorScheme.onSecondary
                                             ),
                                             shape = MaterialTheme.shapes.small,
                                             modifier = Modifier
@@ -241,5 +247,4 @@ fun AuthorListViewScreen(navController: NavController) {
         }
     )
 }
-
 

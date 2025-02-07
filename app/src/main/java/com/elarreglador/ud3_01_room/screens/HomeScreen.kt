@@ -45,7 +45,11 @@ fun HomeScreen(navController: NavController) {
                     contentDescription = "Room: A library management App"
                 )
 
-                Text( "App de gestion de bibliotecas" , modifier = Modifier.padding(paddingValues), textAlign = TextAlign.Justify)
+                Text(
+                    text = "App de gestion de bibliotecas" ,
+                    modifier = Modifier.padding(paddingValues),
+                    textAlign = TextAlign.Justify
+                )
 
                 Button(onClick = {
                     navController.navigate("AuthorListViewScreen")
@@ -63,7 +67,10 @@ fun HomeScreen(navController: NavController) {
 
                 Button(onClick = {
                     // Crear un intent para abrir la URL en el navegador
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/elarreglador/PMM_Room"))
+                    val intent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://github.com/elarreglador/PMM_Room")
+                    )
                     context.startActivity(intent)
                 }) {
                     Text("+ Info.", )

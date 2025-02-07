@@ -46,10 +46,10 @@ fun BookViewScreen(navController: NavController, bookId: Int) {
 
     // Llamada asíncrona para obtener los datos del libro
     LaunchedEffect(bookId) {
-        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si es necesario
+        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si necesario
         book?.let {
             title.value = it.title
-            authorId.value = it.authorId.toString() // Cambia según cómo guardes los datos del autor
+            authorId.value = it.authorId.toString() // Cambia según cómo guardes datos de autor
             year.value = it.year.toString() // Cambia según el campo correspondiente
         }
 

@@ -49,10 +49,10 @@ fun BookEditScreen(navController: NavController , bookId: Int) {
     var year = remember { mutableStateOf("") }
 
     LaunchedEffect(bookId) {
-        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si es necesario
+        val book = miBD.bookDao().getBookById(bookId.toLong()) // Convierte a Long si necesario
         book?.let {
             title.value = it.title
-            authorId.value = it.authorId.toString() // Cambia según cómo guardes los datos del autor
+            authorId.value = it.authorId.toString() // Cambia según cómo guardes datos del autor
             year.value = it.year.toString() // Cambia según el campo correspondiente
         }
     }

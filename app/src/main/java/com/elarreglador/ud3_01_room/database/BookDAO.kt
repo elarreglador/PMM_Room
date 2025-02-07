@@ -9,41 +9,51 @@ import androidx.room.Update
 @Dao
 interface BookDao {
 
+    // Insertar libro
     @Insert
-    suspend fun insertBook(book: Book): Long // Insertar libro
+    suspend fun insertBook(book: Book): Long
 
+    // Actualizar libro
     @Update
-    suspend fun updateBook(book: Book) // Actualizar libro
+    suspend fun updateBook(book: Book)
 
+    // Buscar libro por id
     @Query("SELECT * FROM books WHERE id = :bookId")
-    suspend fun getBookById(bookId: Long): Book? // Buscar libro por id
+    suspend fun getBookById(bookId: Long): Book?
 
+    // Buscar libros por id de autor
     @Query("SELECT * FROM books WHERE authorId = :authorId")
-    suspend fun getBooksByAuthor(authorId: Long): List<Book> // Buscar libros por id de autor
+    suspend fun getBooksByAuthor(authorId: Long): List<Book>
 
+    // Buscar todos los libros
     @Query("SELECT * FROM books")
-    suspend fun getAllBooks(): List<Book> // Buscar todos los libros
+    suspend fun getAllBooks(): List<Book>
 
+    // Buscar libros por autor
     @Query("""
         SELECT books.* FROM books
         INNER JOIN authors ON books.authorId = authors.id
         WHERE authors.name LIKE :authorName
     """)
-    suspend fun getBooksByAuthorName(authorName: String): List<Book>  // Buscar libros por autor
+    suspend fun getBooksByAuthorName(authorName: String): List<Book>
 
+    // Buscar libros por autor
     @Query("""
         SELECT books.* FROM books
         INNER JOIN authors ON books.authorId = authors.id
         WHERE authors.surname LIKE :authorSurname
     """)
-    suspend fun getBooksByAuthorSurname(authorSurname: String): List<Book>  // Buscar libros por autor
+    suspend fun getBooksByAuthorSurname(authorSurname: String): List<Book>
 
-    @Query("SELECT * FROM books WHERE title LIKE :bookTitle")  // Buscar por título del libro
+    // Buscar por título del libro
+    @Query("SELECT * FROM books WHERE title LIKE :bookTitle")
     suspend fun getBooksByTitle(bookTitle: String): List<Book>
 
+    // Eliminar libro por id
     @Query("DELETE FROM books WHERE id = :bookId")
-    suspend fun deleteBook(bookId: Long) // Eliminar libro por id
+    suspend fun deleteBook(bookId: Long)
 
+    // Eliminar todos los autores
     @Query("DELETE FROM books")
-    suspend fun deleteAllBooks() // Eliminar todos los autores
+    suspend fun deleteAllBooks()
 }
