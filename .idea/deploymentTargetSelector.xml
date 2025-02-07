@@ -5,10 +5,16 @@
       <SelectionState runConfigName="AuthorDaoTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="insertAuthor()">
+      <SelectionState runConfigName="getAuthorsByName()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="getAuthorById()">
+      <SelectionState runConfigName="getAuthorsBySurname()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="getAuthorByBookTitle()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="deleteAllAuthors()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

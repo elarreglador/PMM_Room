@@ -15,7 +15,9 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE //si se elimina el autor se elimina el libro
     )],
     indices = [Index("authorId")] // indice para la clave foranea que mejora el rendimiento
-)data class Book(
+)
+
+data class Book(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val title: String,
     val authorId: Long, // clave foranea a la id de autor

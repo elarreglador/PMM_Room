@@ -30,7 +30,7 @@ interface AuthorDao {
     @Query("""
         SELECT authors.* FROM authors
         INNER JOIN books ON authors.id = books.authorId
-        WHERE books.title LIKE :bookTitle
+        WHERE books.title LIKE '%' || :bookTitle || '%'
     """)
     suspend fun getAuthorByBookTitle(bookTitle: String): List<Author>  // Buscar autor por libro
 
