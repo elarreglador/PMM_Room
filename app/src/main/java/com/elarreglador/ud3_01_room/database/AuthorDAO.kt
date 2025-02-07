@@ -5,16 +5,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
-// Definición de la interfaz para el DAO de autores
-@Dao
+@Dao   // Definición de la interfaz para el DAO de autores
 interface AuthorDao {
 
-    // Insertar autor
-    @Insert
+    @Insert     // Insertar autor
     suspend fun insertAuthor(author: Author): Long
 
-    // Actualizar autor
-    @Update
+    @Update    // Actualizar autor
     suspend fun updateAuthor(author: Author)
 
     // Buscar autor por id

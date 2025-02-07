@@ -5,30 +5,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 
-// Funcion que permite la navegacion entre pantallas
 @Composable
-fun Navegador() {
+fun Navegador() { // Funcion que permite la navegacion entre pantallas
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "HomeScreen") {
-        // (route es el apodo para llamar a la ventana) {funcion/pantalla + parametro a usar}
 
         composable( // ventana principal o home
             route = "HomeScreen"
-        ) {
-            HomeScreen(navController)
-        }
+        ) { HomeScreen(navController) }
 
         composable(
             route = "AuthorListViewScreen"
-        ){
-            AuthorListViewScreen(navController)
-        }
+        ){ AuthorListViewScreen(navController) }
 
         composable(
             route = "AuthorAddScreen"
-        ){
-            AuthorAddScreen(navController)
-        }
+        ){ AuthorAddScreen(navController) }
 
         composable(
             route = "AuthorEditScreen/{authorId}"  // Incluir el parámetro authorId en la ruta
@@ -48,15 +40,11 @@ fun Navegador() {
 
         composable(
             route = "BookListViewScreen"
-        ){
-            BookListViewScreen(navController)
-        }
+        ){ BookListViewScreen(navController) }
 
         composable(
             route = "BookAddScreen"
-        ){
-            BookAddScreen(navController)
-        }
+        ){ BookAddScreen(navController) }
 
         composable(
             route = "BookEditScreen/{bookId}"  // Incluir el parámetro bookId en la ruta

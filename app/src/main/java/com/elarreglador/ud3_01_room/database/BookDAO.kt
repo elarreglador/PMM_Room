@@ -5,16 +5,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 
-// Definición de la interfaz para el DAO de libros
-@Dao
+@Dao   // Definición de la interfaz para el DAO de libros
 interface BookDao {
 
-    // Insertar libro
-    @Insert
+    @Insert    // Insertar libro
     suspend fun insertBook(book: Book): Long
 
-    // Actualizar libro
-    @Update
+    @Update    // Actualizar libro
     suspend fun updateBook(book: Book)
 
     // Buscar libro por id
