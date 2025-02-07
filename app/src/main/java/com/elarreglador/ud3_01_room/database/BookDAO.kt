@@ -10,7 +10,7 @@ import androidx.room.Update
 interface BookDao {
 
     @Insert
-    suspend fun insertBook(book: Book) // Insertar libro
+    suspend fun insertBook(book: Book): Long // Insertar libro
 
     @Update
     suspend fun updateBook(book: Book) // Actualizar libro
@@ -18,7 +18,7 @@ interface BookDao {
     @Query("SELECT * FROM books WHERE id = :bookId")
     suspend fun getBookById(bookId: Long): Book? // Buscar libro por id
 
-    @Query("SELECT * FROM books WHERE id = :authorId")
+    @Query("SELECT * FROM books WHERE authorId = :authorId")
     suspend fun getBooksByAuthor(authorId: Long): List<Book> // Buscar libros por id de autor
 
     @Query("SELECT * FROM books")
