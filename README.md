@@ -107,6 +107,35 @@ HomeScreen
 
                         onClick = { navController.navigate("HomeScreen") },
 
+### Tests
+
+Los tests verifican el correcto funcionamiento de las funciones de los DAO de Author y Book
+
+```
+/app/src/androidTest/java/com/elarreglador/ud3_01_room/AuthorDaoTest
+    insertAuthor() - inserta autor, lo recupera y compara resultado
+    updateAuthor() - inserta autor, lo edita, recupera y compara resultado
+    getAuthorById() - inserta autor, lo recupera y compara resultado
+    getAllAuthors() - inserta varios autores, los recupera y compara
+    getAuthorsByName() - inserta varios autores y recupera uno por su nombre
+    getAuthorsBySurname() - inserta varios autores y recupera uno por su apellido
+    getAuthorByBookTitle() - inserta varios libros y autores y los recupera por el titulo del libro
+    deleteAuthor() - genera, inserta y borra un autor por su id
+    deleteAllAuthors() - genera e inserta varios autores y luego borra todos
+
+/app/src/androidTest/java/com/elarreglador/ud3_01_room/BookDaoTest
+    insertBook() - inserta autor y libro y recupera el libro
+    updateBook() - inserta autor y libro, edita el libro y lo recupera
+    getBookById() - inserta autor y libro y lo recupera por su id
+    getBooksByAuthor() - inserta autor y varios libros y los recupera por el autor
+    getAllBooks() - crea autor y libros y los recupera
+    getBooksByAuthorName() - crea autor y libros y los recupera por nombre de autor
+    getBooksByAuthorSurname() - crea autor y libros y los recupera por el apellido del autor
+    getBooksByTitle() - crea autor y libro y lo recupera por el titulo
+    deleteBook() - crea autor y libro y elimina el libro por su id
+    deleteAllBooks() - crea varios autores y libros y elimina los libros
+```
+
 ## Cómo Empezar
 
 1. **Clonar el repositorio**:
