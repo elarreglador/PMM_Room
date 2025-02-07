@@ -51,7 +51,7 @@ class AuthorDaoTest {
         // Inserta el autor y obtiene el id generado
         val id = authorDao.insertAuthor(author)
 
-        // Actualiza el objeto Author con el id generado
+        // Recupera Author con el id generado
         val insertedAuthor = authorDao.getAuthorById(id)
 
         // Verifica que los campos sean correctos
@@ -66,7 +66,11 @@ class AuthorDaoTest {
         val id = authorDao.insertAuthor(author)  // Obtener el id generado después de insertar
 
         // Actualizamos el autor
-        val updatedAuthor = author.copy(id = id, country = "USA")
+        val updatedAuthor = author.copy(
+            id = id,
+            name = "Juan Rigoberto Ronaldo",
+            surname = "To-kien",
+            country = "Estados juntitos")
         authorDao.updateAuthor(updatedAuthor)
 
         val retrievedAuthor = authorDao.getAuthorById(id)
@@ -113,8 +117,10 @@ class AuthorDaoTest {
     fun getAuthorsByName() = runBlocking {
         val author1 = Author(name = "George", surname = "Orwell", country = "UK")
         val author2 = Author(name = "George", surname = "R. R. Martin", country = "USA")
+        val author3 = Author(name = "Aldous", surname = "Huxley", country = "UK")
         val id1 = authorDao.insertAuthor(author1)
         val id2 = authorDao.insertAuthor(author2)
+        val id3 = authorDao.insertAuthor(author3)
 
         // Buscar autores por nombre
         val authors = authorDao.getAuthorsByName("George")
@@ -142,22 +148,41 @@ class AuthorDaoTest {
 
     @Test
     fun getAuthorByBookTitle() = runBlocking {
-        val author = Author(name = "J.K.", surname = "Rowling", country = "UK")
-        val idAut = authorDao.insertAuthor(author)
-        val libro = Book(
+        // Crear e insertar autor y libros
+        val autor = Author(name = "J.K.", surname = "Rowling", country = "UK")
+        val id = authorDao.insertAuthor(autor)
+        val autor2 = Author(name = "Stephen", surname = "King", country = "USA")
+        val id2 = authorDao.insertAuthor(autor2)
+
+        val libro1 = Book(
             title = "Harry Potter and the Sorcerer's Stone",
-            authorId = idAut,
-            year = 1997
+            authorId = id, year = 1997
         )
-        bookDao.insertBook(libro)
+        val libro2 = Book(
+            title = "Harry Potter and the Chamber of Secrets",
+            authorId = id, year = 1998
+        )
+        val libro3 = Book(
+            title = "Harry Potter and the Prisoner of Azkaban",
+            authorId = id, year = 1999
+        )
+        val libro4 = Book(
+            title = "It", authorId = id2, year = 1986
+        )
+
+        // Insertar libros
+        bookDao.insertBook(libro1)
+        bookDao.insertBook(libro2)
+        bookDao.insertBook(libro3)
+        bookDao.insertBook(libro4)
 
         // Buscar autor por título de libro
         val authors = authorDao.getAuthorByBookTitle("Harry Potter")
 
-        assertEquals(idAut, authors[0].id)  // Comparamos IDs
-        assertEquals(author.name, authors[0].name)  // Opcional: validar el nombre
-        assertEquals(author.surname, authors[0].surname)  // Opcional: validar el apellido
-
+        // Comparamos IDs
+        assertEquals(id, authors[0].id)
+        assertEquals(id, authors[1].id)
+        assertEquals(id, authors[2].id)
     }
 
         // Prueba para eliminar un autor
