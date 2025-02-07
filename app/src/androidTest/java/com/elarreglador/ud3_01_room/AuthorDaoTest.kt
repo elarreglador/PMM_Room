@@ -66,11 +66,13 @@ class AuthorDaoTest {
         val id = authorDao.insertAuthor(author)  // Obtener el id generado después de insertar
 
         // Actualizamos el autor
-        val updatedAuthor = author.copy(id = id, country = "USA")  // Usar el id generado para la actualización
+        val updatedAuthor = author.copy(id = id, country = "USA")
         authorDao.updateAuthor(updatedAuthor)
 
-        val retrievedAuthor = authorDao.getAuthorById(id)  // Usar el id generado para recuperar el autor
+        val retrievedAuthor = authorDao.getAuthorById(id)
         assertEquals(updatedAuthor.country, retrievedAuthor?.country)
+        assertEquals(updatedAuthor.name, retrievedAuthor?.name)
+        assertEquals(updatedAuthor.surname, retrievedAuthor?.surname)
     }
 
     // Prueba para obtener un autor por id
